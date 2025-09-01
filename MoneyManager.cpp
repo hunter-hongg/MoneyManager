@@ -46,6 +46,18 @@ void MyFrame::start() {
     panel -> Layout();
 }
 
+void MyFrame::moneyadd(WXBTNEVT&) {
+    auto vbox = Simple::Init(panel, this);
+
+    Simple::Title("零花钱增加", panel, vbox);
+
+    Simple::BackButton(&MyFrame::back_main, panel, vbox, this);
+}
+
+void MyFrame::back_main(WXBTNEVT&){
+    this -> start();
+}
+
 void MyFrame::clean_panel()
 {
     if (!panel) return;
