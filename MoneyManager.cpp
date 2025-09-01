@@ -1,6 +1,25 @@
+#include <cstdlib>
+#include <string>
+#include <fstream>
 #include "MoneyManager.hpp"
 #include "simple.hpp"
 
+int ReadMoney() {
+    std::string home = getenv("HOME");
+    std::string money = home + "/.moneymanager";
+    std::ifstream tmp(money);
+    if(!tmp.is_open()){
+        std::ofstream ttmp(money);
+        ttmp << 0;
+        ttmp.close();
+    }
+    tmp.close();
+    std::ifstream inmoney(money);
+    std::string a;
+    inmoney >> a;
+    inmoney.close();
+    return atoi(a.c_str());
+}
 bool MyApp::OnInit()
 {
     MyFrame *frame = new MyFrame("Money Manager", wxDefaultPosition, wxSize(500, 500));
@@ -19,6 +38,9 @@ void MyFrame::start() {
     auto vbox = Simple::Init(panel, this);
 
     Simple::TitleNoSpacer("零花钱管理", panel, vbox);
+    Simple::ShowButton("目前零花钱："+std::__cxx11::to_string(ReadMoney()), panel, vbox);
+
+    Simple::Button(&MyFrame::moneyadd, "增加零花钱", panel, vbox, this); 
 
     panel -> SetSizer(vbox);
     panel -> Layout();
