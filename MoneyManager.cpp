@@ -42,6 +42,7 @@ void MyFrame::start() {
 
     Simple::Button(&MyFrame::moneyadd, "增加零花钱", panel, vbox, this); 
 
+    panel -> AddStretchSpacer();
     panel -> SetSizer(vbox);
     panel -> Layout();
 }
